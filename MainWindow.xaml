@@ -13,19 +13,23 @@
         SnapsToDevicePixels="True"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
     
+    <Window.Resources>
+        <Style TargetType="MediaElement">
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+        </Style>
+    </Window.Resources>
+
     <Grid Background="Transparent">
-        <MediaElement x:Name="gifPlayer" 
-                      Width="200" 
-                      Height="200"
-                      Stretch="Uniform"
-                      LoadedBehavior="Manual"
-                      UnloadedBehavior="Manual"
-                      MediaEnded="GifPlayer_MediaEnded">
-            <MediaElement.ContextMenu>
+        <Image x:Name="displayImage" 
+               Width="200" 
+               Height="200" 
+               Stretch="Uniform"
+               RenderOptions.BitmapScalingMode="HighQuality">
+            <Image.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="退出" Click="ExitMenuItem_Click"/>
                 </ContextMenu>
-            </MediaElement.ContextMenu>
-        </MediaElement>
+            </Image.ContextMenu>
+        </Image>
     </Grid>
 </Window>

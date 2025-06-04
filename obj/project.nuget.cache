@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "z5QTkNCm0CQ=",
+  "dgSpecHash": "V1NLBTIJICE=",
   "success": true,
   "projectFilePath": "H:\\WorkSpace\\Projects\\C#Project\\C#\\DesktopPet.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\vangee\\.nuget\\packages\\wpfanimatedgif\\2.0.2\\wpfanimatedgif.2.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

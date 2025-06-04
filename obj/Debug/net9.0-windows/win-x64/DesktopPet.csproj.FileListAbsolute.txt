@@ -110,6 +110,8 @@ H:\WorkSpace\Projects\C#Project\C#\bin\Debug\net9.0-windows\win-x64\DesktopPet.d
 H:\WorkSpace\Projects\C#Project\C#\bin\Debug\net9.0-windows\win-x64\DesktopPet.runtimeconfig.json
 H:\WorkSpace\Projects\C#Project\C#\bin\Debug\net9.0-windows\win-x64\DesktopPet.dll
 H:\WorkSpace\Projects\C#Project\C#\bin\Debug\net9.0-windows\win-x64\DesktopPet.pdb
+H:\WorkSpace\Projects\C#Project\C#\bin\Debug\net9.0-windows\win-x64\WpfAnimatedGif.dll
+H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\DesktopPet.csproj.AssemblyReference.cache
 H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\MainWindow.baml
 H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\MainWindow.g.cs
 H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\App.g.cs
@@ -119,6 +121,7 @@ H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\DesktopPet.G
 H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\DesktopPet.AssemblyInfoInputs.cache
 H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\DesktopPet.AssemblyInfo.cs
 H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\DesktopPet.csproj.CoreCompileInputs.cache
+H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\DesktopPet.csproj.Up2Date
 H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\DesktopPet.dll
 H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\refint\DesktopPet.dll
 H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\DesktopPet.pdb

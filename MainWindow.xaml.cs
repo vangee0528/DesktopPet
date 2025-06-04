@@ -2,6 +2,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using WpfAnimatedGif;
 
 namespace DesktopPet
 {
@@ -77,8 +78,15 @@ namespace DesktopPet
 
                 currentIndex = newIndex;
                 string gifPath = gifFiles[currentIndex];
-                gifPlayer.Source = new Uri(gifPath, UriKind.Absolute);
-                gifPlayer.Play();
+                
+                // 使用 WpfAnimatedGif 来加载和显示 GIF
+                var image = new System.Windows.Media.Imaging.BitmapImage();
+                image.BeginInit();
+                image.UriSource = new Uri(gifPath, UriKind.Absolute);
+                image.CacheOption = System.Windows.Media.Imaging.BitmapCacheOption.OnLoad;
+                image.EndInit();
+
+                ImageBehavior.SetAnimatedSource(displayImage, image);
                 
                 Console.WriteLine($"正在播放：{Path.GetFileName(gifPath)}");
                 
@@ -100,13 +108,6 @@ namespace DesktopPet
         {
             // 允许拖动窗口
             DragMove();
-        }
-
-        private void GifPlayer_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            // GIF播放结束后重新开始播放
-            gifPlayer.Position = TimeSpan.Zero;
-            gifPlayer.Play();
         }
 
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
