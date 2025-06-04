@@ -15,24 +15,24 @@
 
 ### 安装要求
 - Windows 10或更高版本
-- [.NET 9.0](https://dotnet.microsoft.com/download) 或更高版本 （没有该环境请选择名称不带Framework的发行版）
+- [.NET 9.0](https://dotnet.microsoft.com/download) 或更高版本 
 
 ### 安装方法
 
 #### 方法一：直接运行（推荐）
-1. 下载 `DesktopPet-vX.X.X.zip`（其中X.X.X为版本号）
+1. 下载 `DesktopPet-vX.X.X-full.zip`（其中X.X.X为版本号） （若你有.NET 9.0环境则下载`DesktopPet-vX.X.X-framework.zip`
 2. 解压到任意目录（如 `D:\Programs\DesktopPet`）
 3. 运行 `DesktopPet.exe`
 4. （可选）右键菜单中选择"开机自启动"
 
 #### 方法二：从源代码编译
-1. 克隆仓库：`git clone https://github.com/vangee0528/DesktopPet/tree/V1.0`
+1. 克隆仓库：`git clone https://github.com/vangee0528/DesktopPet/`
 2. 安装 .NET 9.0 SDK
 3. 在项目目录下执行：
-```powershell
-dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
+```bash
+powershell -ExecutionPolicy ByPass -File ".\scripts\publish.ps1"
 ```
-4. 生成的程序在 `bin\Release\net9.0-windows\win-x64\publish` 目录下
+4. 生成的程序在 `Release`文件夹下
 
 ### 基本使用
 
@@ -67,7 +67,6 @@ dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=
 3. **故障排除**
    - 如果宠物没有反应，可以通过任务管理器关闭后重新启动
    - 如果动画显示异常，检查dog_gifs目录是否完整
-   - 配置文件保存在`%AppData%\DesktopPet`目录下
 
 ### 文件结构
 
@@ -94,14 +93,15 @@ DesktopPet/
 │   ├── curious/
 │   ├── ...
 ├── scripts/               # 开发工具（不会被发布）
-│   ├── emotion_classifier.py
-│   ├── gif_classifier.py
-│   └── ...
+│   ├── emotion_classifier.py   # 表情分类工具
+│   ├── gif_classifier.py      # GIF分类工具
+│   ├── gif_resizer.py        # GIF大小调整工具
+│   └── publish.ps1           # 一键发布脚本
+├── version.json           # 版本管理文件
 ├── dog_gifs_backup.zip    # 备份文件
 ├── README.md              # 项目说明
 └── DesktopPet.csproj      # 项目文件
 ```
-
 
 
 ### 情感系统设计
@@ -167,8 +167,9 @@ DesktopPet/
 - .NET 9.0 SDK
 - Python 3.8+（用于GIF处理工具）
 
-### 构建步骤
+### 构建和发布
 
+#### 日常开发构建
 1. 构建项目
 ```powershell
 dotnet build
@@ -178,6 +179,38 @@ dotnet build
 ```powershell
 dotnet run
 ```
+
+#### 发布新版本
+项目提供了一键发布脚本 `scripts/publish.ps1`，可以自动完成版本管理、打包和发布：
+
+1. 正常发布（使用当前版本号）：
+```powershell
+powershell -ExecutionPolicy ByPass -File ".\scripts\publish.ps1"
+```
+
+2. 发布新版本（自动递增版本号）：
+```powershell
+powershell -ExecutionPolicy ByPass -File ".\scripts\publish.ps1" -IncrementVersion
+```
+
+脚本会自动：
+- 更新版本号（使用 `-IncrementVersion` 时）
+- 同步更新 AssemblyInfo.cs 中的版本信息
+- 生成两个版本的发布包：
+  - 完整版（约60MB，包含运行时）
+  - 框架依赖版（约2MB，需要安装.NET Runtime）
+- 创建包含版本信息的 README.txt
+- 打包所有必需文件
+- 清理临时文件和构建目录
+
+发布包会自动生成在 `Release` 目录下：
+- `DesktopPet-vX.X.X-full.zip`：完整版
+- `DesktopPet-vX.X.X-framework.zip`：框架依赖版
+
+版本号管理：
+- 版本信息存储在 `version.json` 中
+- 包含版本号、发布日期、更新说明等
+- 可以手动编辑以进行大版本更新
 
 ### GIF资源处理
 项目包含多个Python脚本用于处理GIF资源：
