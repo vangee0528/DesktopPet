@@ -32,19 +32,39 @@ namespace DesktopPet
                 
                 // 加载设置
                 settings = PetSettings.Load();
+                
+                // 初始化自启动菜单项状态
+                AutoStartMenuItem.IsChecked = StartupManager.IsStartupEnabled();
+                if (AutoStartMenuItem.IsChecked != settings.AutoStartup)
+                {
+                    // 如果设置和实际状态不一致，以实际状态为准
+                    settings.AutoStartup = AutoStartMenuItem.IsChecked;
+                    settings.Save();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"初始化界面失败：{ex.Message}");
                 throw;
             }
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        }        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
                 Console.WriteLine("窗口加载完成，开始初始化系统...");
+
+                // 初始化自启动菜单项状态
+                var autoStartMenuItem = (displayImage.ContextMenu.Items[4] as MenuItem)!;
+                autoStartMenuItem.IsChecked = StartupManager.IsStartupEnabled();
+                if (autoStartMenuItem.IsChecked != settings.AutoStartup)
+                {
+                    settings.AutoStartup = autoStartMenuItem.IsChecked;
+                    settings.Save();
+                }
+
+                // 初始化固定模式菜单项状态
+                var fixedModeMenuItem = (displayImage.ContextMenu.Items[1] as MenuItem)!;
+                fixedModeMenuItem.IsChecked = settings.IsFixedMode;
                 
                 // 初始化情感系统
                 emotionState = new EmotionState(settings);
@@ -154,10 +174,18 @@ namespace DesktopPet
 
                 if (fixedModeWindow.ShowDialog() == true)
                 {
-                    // 如果启用了固定模式
+                    // 更新菜单项状态
+                    var menuItem = (sender as MenuItem)!;
+                    menuItem.IsChecked = settings.IsFixedMode;
+
+                    // 根据状态启动或停止固定模式
                     if (settings.IsFixedMode)
                     {
                         StartFixedMode();
+                    }
+                    else
+                    {
+                        StopFixedMode();
                     }
                 }
             }
@@ -368,6 +396,19 @@ namespace DesktopPet
             {
                 MessageBox.Show($"保存设置失败：{ex.Message}");
             }
+        }
+
+        private void AutoStart_Click(object sender, RoutedEventArgs e)
+        {
+            var menuItem = sender as MenuItem;
+            if (menuItem == null) return;
+
+            var isChecked = menuItem.IsChecked;
+            StartupManager.SetStartup(isChecked);
+            
+            // 更新设置
+            settings.AutoStartup = isChecked;
+            settings.Save();
         }
     }
 }

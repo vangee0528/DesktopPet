@@ -140,9 +140,26 @@ namespace DesktopPet
             }
 
             settings.IsFixedMode = true;
-            SaveButton_Click(sender, e);
+            settings.FixedModeGifs = selectedGifs.ToArray();
+            
+            if (int.TryParse(IntervalBox.Text, out int interval))
+            {
+                settings.FixedModeSwitchInterval = Math.Max(1, interval);
+            }
+            
+            settings.Save();
+            DialogResult = true;
+            Close();
         }
-        
+
+        private void DisableFixed_Click(object sender, RoutedEventArgs e)
+        {
+            settings.IsFixedMode = false;
+            settings.Save();
+            DialogResult = true;
+            Close();
+        }
+
         private void PreviewGif(string gifName)
         {
             try

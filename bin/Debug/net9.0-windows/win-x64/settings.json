@@ -1,8 +1,8 @@
 {
+  "AutoStartup": false,
   "IsFixedMode": true,
   "FixedModeGifs": [
-    "angry\\dog_102.gif",
-    "angry\\dog_65.gif"
+    "excited\\dog_83.gif"
   ],
   "FixedModeSwitchInterval": 30,
   "DefaultAnimationInterval": 30,

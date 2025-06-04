@@ -26,10 +26,11 @@
                MouseEnter="DisplayImage_MouseEnter"
                MouseDown="DisplayImage_MouseDown"
                RenderOptions.BitmapScalingMode="HighQuality">            <Image.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="设置" Click="ShowSettings_Click"/>
-                    <MenuItem Header="固定显示模式" Click="ShowFixedMode_Click"/>
+                <ContextMenu>                    <MenuItem Header="设置" Click="ShowSettings_Click"/>
+                    <MenuItem x:Name="FixedModeMenuItem" Header="固定显示模式" IsCheckable="True" Click="ShowFixedMode_Click"/>
                     <MenuItem Header="显示调试窗口" Click="ShowDebugWindow_Click"/>
+                    <Separator/>
+                    <MenuItem x:Name="AutoStartMenuItem" Header="开机自启动" IsCheckable="True" Click="AutoStart_Click"/>
                     <Separator/>
                     <MenuItem Header="退出" Click="ExitMenuItem_Click"/>
                 </ContextMenu>

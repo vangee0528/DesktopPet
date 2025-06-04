@@ -8,6 +8,9 @@ namespace DesktopPet
         private static readonly string SettingsPath = Path.Combine(
             AppDomain.CurrentDomain.BaseDirectory, "settings.json");
 
+        // 开机自启动设置
+        public bool AutoStartup { get; set; } = false;
+
         // 固定显示模式设置
         public bool IsFixedMode { get; set; } = false;
         public string[] FixedModeGifs { get; set; } = Array.Empty<string>();
