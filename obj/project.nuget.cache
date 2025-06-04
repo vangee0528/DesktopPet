@@ -1,14 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "e5SXsyCTl3o=",
+  "dgSpecHash": "BtEldIHU8UQ=",
   "success": true,
   "projectFilePath": "H:\\WorkSpace\\Projects\\C#Project\\C#\\DesktopPet.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vangee\\.nuget\\packages\\microsoft.net.illink.tasks\\9.0.5\\microsoft.net.illink.tasks.9.0.5.nupkg.sha512",
-    "C:\\Users\\vangee\\.nuget\\packages\\wpfanimatedgif\\2.0.2\\wpfanimatedgif.2.0.2.nupkg.sha512",
-    "C:\\Users\\vangee\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\9.0.5\\microsoft.netcore.app.runtime.win-x64.9.0.5.nupkg.sha512",
-    "C:\\Users\\vangee\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\9.0.5\\microsoft.windowsdesktop.app.runtime.win-x64.9.0.5.nupkg.sha512",
-    "C:\\Users\\vangee\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\9.0.5\\microsoft.aspnetcore.app.runtime.win-x64.9.0.5.nupkg.sha512"
+    "C:\\Users\\vangee\\.nuget\\packages\\wpfanimatedgif\\2.0.2\\wpfanimatedgif.2.0.2.nupkg.sha512"
   ],
   "logs": []
 }

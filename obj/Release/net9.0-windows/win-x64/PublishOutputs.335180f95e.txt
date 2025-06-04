@@ -17,6 +17,7 @@ H:\WorkSpace\Projects\C#Project\C#\bin\Release\net9.0-windows\win-x64\publish\do
 H:\WorkSpace\Projects\C#Project\C#\bin\Release\net9.0-windows\win-x64\publish\dog_gifs\curious\dog_9.gif
 H:\WorkSpace\Projects\C#Project\C#\bin\Release\net9.0-windows\win-x64\publish\dog_gifs\curious\dog_96.gif
 H:\WorkSpace\Projects\C#Project\C#\bin\Release\net9.0-windows\win-x64\publish\dog_gifs\disappointed\dog_92.gif
+H:\WorkSpace\Projects\C#Project\C#\bin\Release\net9.0-windows\win-x64\publish\dog_gifs\dog_gifs_backup.zip
 H:\WorkSpace\Projects\C#Project\C#\bin\Release\net9.0-windows\win-x64\publish\dog_gifs\excited\dog_35.gif
 H:\WorkSpace\Projects\C#Project\C#\bin\Release\net9.0-windows\win-x64\publish\dog_gifs\excited\dog_39.gif
 H:\WorkSpace\Projects\C#Project\C#\bin\Release\net9.0-windows\win-x64\publish\dog_gifs\excited\dog_43.gif
