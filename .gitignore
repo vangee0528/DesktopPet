@@ -79,5 +79,5 @@ scripts/__pycache__/
 *.pyc
 
 # 发布文件夹（如果您想手动控制发布）
-[Rr]elease-v*/
-DesktopPet-v*.zip
+[Rr]elease/
+Release/*

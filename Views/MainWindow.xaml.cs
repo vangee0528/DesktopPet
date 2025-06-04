@@ -74,9 +74,7 @@ namespace DesktopPet
                 var workArea = SystemParameters.WorkArea;
                 var margin = 10;
                 Left = workArea.Right - Width - margin;
-                Top = workArea.Bottom - Height - margin;
-
-                // 检查是否需要启动固定模式
+                Top = workArea.Bottom - Height - margin;                // 检查是否需要启动固定模式
                 if (settings.IsFixedMode && settings.FixedModeGifs?.Length > 0)
                 {
                     StartFixedMode();
@@ -91,6 +89,7 @@ namespace DesktopPet
                     emotionTimer.Tick += EmotionTimer_Tick;
                     emotionTimer.Start();
 
+                    Console.WriteLine($"设置行为定时器间隔：{settings.DefaultAnimationInterval}秒");
                     behaviorTimer = new DispatcherTimer
                     {
                         Interval = TimeSpan.FromSeconds(settings.DefaultAnimationInterval)
@@ -98,6 +97,7 @@ namespace DesktopPet
                     behaviorTimer.Tick += BehaviorTimer_Tick;
                     behaviorTimer.Start();
 
+                    // 显示初始状态
                     UpdatePetDisplay();
                 }
                 
@@ -108,13 +108,20 @@ namespace DesktopPet
                 MessageBox.Show($"初始化系统失败：{ex.Message}\n\n{ex.StackTrace}");
                 Close();
             }
-        }
-
-        private void EmotionTimer_Tick(object? sender, EventArgs e)
+        }        private void EmotionTimer_Tick(object? sender, EventArgs e)
         {
             try
             {
+                var prevEmotion = emotionState?.CurrentEmotion;
                 emotionState?.Update();
+                
+                // 如果情感状态改变了，立即更新显示
+                if (prevEmotion != emotionState?.CurrentEmotion)
+                {
+                    Console.WriteLine($"情感状态从 {prevEmotion} 变为 {emotionState?.CurrentEmotion}");
+                    UpdatePetDisplay();
+                }
+                
                 UpdateBehaviorTimer();
                 UpdateDebugInfo();
             }
@@ -129,6 +136,7 @@ namespace DesktopPet
             try
             {
                 UpdatePetDisplay();
+                Console.WriteLine($"行为定时器触发更新显示，当前情绪：{emotionState?.CurrentEmotion}");
             }
             catch (Exception ex)
             {
@@ -266,9 +274,7 @@ namespace DesktopPet
             {
                 Console.WriteLine($"显示固定GIF失败：{ex.Message}");
             }
-        }
-
-        private void UpdateBehaviorTimer()
+        }        private void UpdateBehaviorTimer()
         {
             if (behaviorTimer == null || emotionState == null) return;
 
@@ -281,7 +287,15 @@ namespace DesktopPet
                 _ => settings.DefaultAnimationInterval
             };
 
-            behaviorTimer.Interval = TimeSpan.FromSeconds(interval);
+            if (behaviorTimer.Interval.TotalSeconds != interval)
+            {
+                Console.WriteLine($"更新行为定时器间隔：从 {behaviorTimer.Interval.TotalSeconds:F1}秒 到 {interval:F1}秒");
+                behaviorTimer.Interval = TimeSpan.FromSeconds(interval);
+                
+                // 重置定时器以立即应用新的间隔
+                behaviorTimer.Stop();
+                behaviorTimer.Start();
+            }
         }
 
         private void UpdatePetDisplay()
