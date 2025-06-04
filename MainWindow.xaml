@@ -1,0 +1,31 @@
+<Window x:Class="DesktopPet.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="桌面宠物" Height="200" Width="200"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="True"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    
+    <Grid Background="Transparent">
+        <MediaElement x:Name="gifPlayer" 
+                      Width="200" 
+                      Height="200"
+                      Stretch="Uniform"
+                      LoadedBehavior="Manual"
+                      UnloadedBehavior="Manual"
+                      MediaEnded="GifPlayer_MediaEnded">
+            <MediaElement.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="退出" Click="ExitMenuItem_Click"/>
+                </ContextMenu>
+            </MediaElement.ContextMenu>
+        </MediaElement>
+    </Grid>
+</Window>
