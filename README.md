@@ -123,28 +123,17 @@ DesktopPet/
 ## 开发相关
 
 ### 开发环境要求
-- Visual Studio 2022或更高版本
 - .NET 9.0 SDK
 - Python 3.8+（用于GIF处理工具）
 
 ### 构建步骤
-1. 克隆仓库
-```powershell
-git clone [repository-url]
-cd DesktopPet
-```
 
-2. 使用Visual Studio打开解决方案
-```powershell
-devenv DesktopPet.sln
-```
-
-3. 构建项目
+1. 构建项目
 ```powershell
 dotnet build
 ```
 
-4. 运行应用
+2. 运行应用
 ```powershell
 dotnet run
 ```
@@ -158,7 +147,6 @@ dotnet run
 使用方法：
 ```powershell
 cd scripts
-pip install -r requirements.txt
 python gif_resizer.py
 ```
 
