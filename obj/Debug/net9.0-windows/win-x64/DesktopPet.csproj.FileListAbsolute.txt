@@ -104,3 +104,5 @@ H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\refint\Deskt
 H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\DesktopPet.pdb
 H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\DesktopPet.genruntimeconfig.cache
 H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\ref\DesktopPet.dll
+H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\FixedModeWindow.baml
+H:\WorkSpace\Projects\C#Project\C#\obj\Debug\net9.0-windows\win-x64\FixedModeWindow.g.cs

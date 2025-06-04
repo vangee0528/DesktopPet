@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using System.Windows.Media.Imaging;
 using WpfAnimatedGif;
 
 
@@ -15,8 +16,10 @@ namespace DesktopPet
         private PetBehavior? petBehavior;
         private DispatcherTimer? emotionTimer;
         private DispatcherTimer? behaviorTimer;
+        private DispatcherTimer? fixedModeTimer;
         private DateTime lastClickTime = DateTime.MinValue;
         private int clickCount = 0;
+        private int currentFixedGifIndex = 0;
         private Window? debugWindow;
         private PetSettings settings;
 
@@ -45,32 +48,38 @@ namespace DesktopPet
                 
                 // 初始化情感系统
                 emotionState = new EmotionState(settings);
-                petBehavior = new PetBehavior();                // 设置窗口位置到右下角
-                var workArea = SystemParameters.WorkArea; // 使用工作区，这样可以避开任务栏
-                
-                // 计算位置，使用工作区右下角
-                var margin = 10; // 减小边距使其更靠近角落
+                petBehavior = new PetBehavior();
+
+                // 设置窗口位置到右下角
+                var workArea = SystemParameters.WorkArea;
+                var margin = 10;
                 Left = workArea.Right - Width - margin;
                 Top = workArea.Bottom - Height - margin;
 
-                // 情感更新定时器（每秒更新一次）
-                emotionTimer = new DispatcherTimer
+                // 检查是否需要启动固定模式
+                if (settings.IsFixedMode && settings.FixedModeGifs?.Length > 0)
                 {
-                    Interval = TimeSpan.FromSeconds(1)
-                };
-                emotionTimer.Tick += EmotionTimer_Tick;
-                emotionTimer.Start();
-
-                // 行为更新定时器（控制GIF切换，根据情感状态决定间隔）
-                behaviorTimer = new DispatcherTimer
+                    StartFixedMode();
+                }
+                else
                 {
-                    Interval = TimeSpan.FromSeconds(settings.DefaultAnimationInterval)
-                };
-                behaviorTimer.Tick += BehaviorTimer_Tick;
-                behaviorTimer.Start();
+                    // 启动正常模式
+                    emotionTimer = new DispatcherTimer
+                    {
+                        Interval = TimeSpan.FromSeconds(1)
+                    };
+                    emotionTimer.Tick += EmotionTimer_Tick;
+                    emotionTimer.Start();
 
-                // 显示初始状态
-                UpdatePetDisplay();
+                    behaviorTimer = new DispatcherTimer
+                    {
+                        Interval = TimeSpan.FromSeconds(settings.DefaultAnimationInterval)
+                    };
+                    behaviorTimer.Tick += BehaviorTimer_Tick;
+                    behaviorTimer.Start();
+
+                    UpdatePetDisplay();
+                }
                 
                 Console.WriteLine("系统初始化完成");
             }
@@ -131,6 +140,103 @@ namespace DesktopPet
             catch (Exception ex)
             {
                 MessageBox.Show($"打开设置失败：{ex.Message}");
+            }
+        }
+
+        private void ShowFixedMode_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var fixedModeWindow = new FixedModeWindow(settings)
+                {
+                    Owner = this
+                };
+
+                if (fixedModeWindow.ShowDialog() == true)
+                {
+                    // 如果启用了固定模式
+                    if (settings.IsFixedMode)
+                    {
+                        StartFixedMode();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"打开固定显示模式失败：{ex.Message}");
+            }
+        }
+
+        private void StartFixedMode()
+        {
+            // 停止情感和行为定时器
+            emotionTimer?.Stop();
+            behaviorTimer?.Stop();
+
+            // 初始化固定模式定时器
+            if (fixedModeTimer == null)
+            {
+                fixedModeTimer = new DispatcherTimer
+                {
+                    Interval = TimeSpan.FromSeconds(settings.FixedModeSwitchInterval)
+                };
+                fixedModeTimer.Tick += FixedModeTimer_Tick;
+            }
+            else
+            {
+                fixedModeTimer.Interval = TimeSpan.FromSeconds(settings.FixedModeSwitchInterval);
+            }
+
+            // 重置索引并开始显示
+            currentFixedGifIndex = 0;
+            ShowNextFixedGif();
+            fixedModeTimer.Start();
+        }
+
+        private void StopFixedMode()
+        {
+            fixedModeTimer?.Stop();
+            settings.IsFixedMode = false;
+            settings.Save();
+
+            // 重新启动情感系统
+            emotionTimer?.Start();
+            behaviorTimer?.Start();
+            UpdatePetDisplay();
+        }
+
+        private void FixedModeTimer_Tick(object? sender, EventArgs e)
+        {
+            ShowNextFixedGif();
+        }
+
+        private void ShowNextFixedGif()
+        {
+            if (settings.FixedModeGifs == null || settings.FixedModeGifs.Length == 0)
+            {
+                StopFixedMode();
+                return;
+            }            try
+            {
+                var gifRelativePath = settings.FixedModeGifs[currentFixedGifIndex];
+                var gifPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dog_gifs", gifRelativePath);
+                
+                if (File.Exists(gifPath))
+                {
+                    var image = new BitmapImage();
+                    image.BeginInit();
+                    image.UriSource = new Uri(gifPath);
+                    image.CacheOption = BitmapCacheOption.OnLoad; // 防止文件锁定
+                    image.EndInit();
+                    ImageBehavior.SetAnimatedSource(displayImage, image);
+                }
+
+                // 更新索引
+                currentFixedGifIndex = (currentFixedGifIndex + 1) % settings.FixedModeGifs.Length;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"显示固定GIF失败：{ex.Message}");
             }
         }
 

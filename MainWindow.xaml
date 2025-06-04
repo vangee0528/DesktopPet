@@ -28,6 +28,7 @@
                RenderOptions.BitmapScalingMode="HighQuality">            <Image.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="设置" Click="ShowSettings_Click"/>
+                    <MenuItem Header="固定显示模式" Click="ShowFixedMode_Click"/>
                     <MenuItem Header="显示调试窗口" Click="ShowDebugWindow_Click"/>
                     <Separator/>
                     <MenuItem Header="退出" Click="ExitMenuItem_Click"/>

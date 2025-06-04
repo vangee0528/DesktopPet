@@ -8,6 +8,11 @@ namespace DesktopPet
         private static readonly string SettingsPath = Path.Combine(
             AppDomain.CurrentDomain.BaseDirectory, "settings.json");
 
+        // 固定显示模式设置
+        public bool IsFixedMode { get; set; } = false;
+        public string[] FixedModeGifs { get; set; } = Array.Empty<string>();
+        public int FixedModeSwitchInterval { get; set; } = 30;  // 默认30秒切换一次
+
         // 动画设置
         public int DefaultAnimationInterval { get; set; } = 30;    // 默认动画切换间隔（秒）
         public int ExcitedAnimationInterval { get; set; } = 10;    // 兴奋状态下的切换间隔

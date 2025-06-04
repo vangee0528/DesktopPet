@@ -1,0 +1,19 @@
+{
+  "IsFixedMode": true,
+  "FixedModeGifs": [
+    "angry\\dog_102.gif",
+    "angry\\dog_65.gif"
+  ],
+  "FixedModeSwitchInterval": 30,
+  "DefaultAnimationInterval": 30,
+  "ExcitedAnimationInterval": 10,
+  "SleepyAnimationInterval": 45,
+  "AngryAnimationInterval": 5,
+  "EnergyDecayRate": 1,
+  "InteractionNeedRate": 1,
+  "PetEnergyBoost": 15,
+  "RapidClickThreshold": 5,
+  "RandomExcitementChance": 0.3,
+  "NightStartHour": 22,
+  "NightEndHour": 6
+}
