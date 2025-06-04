@@ -45,7 +45,13 @@ namespace DesktopPet
                 
                 // 初始化情感系统
                 emotionState = new EmotionState(settings);
-                petBehavior = new PetBehavior();
+                petBehavior = new PetBehavior();                // 设置窗口位置到右下角
+                var workArea = SystemParameters.WorkArea; // 使用工作区，这样可以避开任务栏
+                
+                // 计算位置，使用工作区右下角
+                var margin = 10; // 减小边距使其更靠近角落
+                Left = workArea.Right - Width - margin;
+                Top = workArea.Bottom - Height - margin;
 
                 // 情感更新定时器（每秒更新一次）
                 emotionTimer = new DispatcherTimer
