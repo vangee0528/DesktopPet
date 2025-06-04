@@ -11,22 +11,27 @@
         ResizeMode="NoResize"
         UseLayoutRounding="True"
         SnapsToDevicePixels="True"
+        Loaded="Window_Loaded"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
     
     <Window.Resources>
-        <Style TargetType="MediaElement">
+        <Style TargetType="Image">
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
         </Style>
     </Window.Resources>
 
-    <Grid Background="Transparent">
+    <Grid Name="MainGrid" Background="Transparent">
         <Image x:Name="displayImage" 
                Width="200" 
                Height="200" 
                Stretch="Uniform"
-               RenderOptions.BitmapScalingMode="HighQuality">
-            <Image.ContextMenu>
+               MouseEnter="DisplayImage_MouseEnter"
+               MouseDown="DisplayImage_MouseDown"
+               RenderOptions.BitmapScalingMode="HighQuality">            <Image.ContextMenu>
                 <ContextMenu>
+                    <MenuItem Header="设置" Click="ShowSettings_Click"/>
+                    <MenuItem Header="显示调试窗口" Click="ShowDebugWindow_Click"/>
+                    <Separator/>
                     <MenuItem Header="退出" Click="ExitMenuItem_Click"/>
                 </ContextMenu>
             </Image.ContextMenu>
