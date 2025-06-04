@@ -1,3 +1,68 @@
+# 桌面宠物 (DesktopPet)
+
+一个基于WPF开发的Windows桌面宠物应用，具有情感系统和丰富的互动功能。
+
+## 功能特点
+
+- 🎭 **丰富的情感表现**: 包括开心、兴奋、好奇、困倦等8种情感状态
+- 🔄 **动态情感系统**: 根据互动频率和时间自动变化情感状态
+- 🌙 **环境感知**: 支持昼夜节律，夜间自动调整行为模式
+- ⚙️ **高度可定制**: 可调节情感参数、动画间隔等各项设置
+- 📌 **固定显示模式**: 支持选择固定的动画序列循环播放
+- 🚀 **开机自启**: 可选择开机自动启动
+
+## 快速开始
+
+### 安装要求
+- Windows 10或更高版本
+- [.NET 9.0](https://dotnet.microsoft.com/download) 或更高版本
+
+### 安装方法
+1. 从Release页面下载最新版本
+2. 解压到任意目录
+3. 运行 DesktopPet.exe
+
+### 基本使用
+- **移动**: 左键拖拽
+- **互动**: 左键点击抚摸
+- **设置**: 右键打开菜单
+- **退出**: 右键菜单中选择"退出"
+
+### 文件结构
+
+```cpp
+DesktopPet/
+├── Base/                   # 应用程序基础文件
+│   ├── App.xaml
+│   ├── App.xaml.cs
+│   └── AssemblyInfo.cs
+├── Models/                 # 模型类
+│   ├── EmotionState.cs
+│   ├── PetBehavior.cs
+│   ├── PetSettings.cs
+│   └── StartupManager.cs
+├── Views/                  # 视图文件
+│   ├── MainWindow.xaml
+│   ├── MainWindow.xaml.cs
+│   ├── SettingsWindow.xaml
+│   ├── SettingsWindow.xaml.cs
+│   ├── FixedModeWindow.xaml
+│   └── FixedModeWindow.xaml.cs
+├── dog_gifs/              # 资源文件
+│   ├── angry/
+│   ├── curious/
+│   ├── ...
+├── scripts/               # 开发工具（不会被发布）
+│   ├── emotion_classifier.py
+│   ├── gif_classifier.py
+│   └── ...
+├── dog_gifs_backup.zip    # 备份文件
+├── README.md              # 项目说明
+└── DesktopPet.csproj      # 项目文件
+```
+
+
+
 ### 情感系统设计
 
 #### 核心情感驱动因素
@@ -54,3 +119,94 @@
    disappointed -->|继续忽视| sad
    sad -->|持续忽视| sleepy
    ```
+
+## 开发相关
+
+### 开发环境要求
+- Visual Studio 2022或更高版本
+- .NET 9.0 SDK
+- Python 3.8+（用于GIF处理工具）
+
+### 构建步骤
+1. 克隆仓库
+```powershell
+git clone [repository-url]
+cd DesktopPet
+```
+
+2. 使用Visual Studio打开解决方案
+```powershell
+devenv DesktopPet.sln
+```
+
+3. 构建项目
+```powershell
+dotnet build
+```
+
+4. 运行应用
+```powershell
+dotnet run
+```
+
+### GIF资源处理
+项目包含多个Python脚本用于处理GIF资源：
+- `gif_classifier.py`: GIF表情分类工具
+- `gif_resizer.py`: 统一GIF尺寸
+- `gif_size_analyzer.py`: 分析GIF尺寸分布
+
+使用方法：
+```powershell
+cd scripts
+pip install -r requirements.txt
+python gif_resizer.py
+```
+
+## 配置说明
+
+### 设置选项
+- **动画设置**
+  - 默认动画间隔：控制GIF切换频率
+  - 特殊状态动画间隔：针对不同情感状态的切换频率
+  
+- **情感参数**
+  - 情感能量衰减率：每分钟情感值降低速度
+  - 互动渴望增长率：每分钟互动需求增加速度
+  - 随机兴奋概率：触发随机行为的概率
+
+- **时间设置**
+  - 夜间模式时间：设置夜间行为模式的时间范围
+
+### 固定显示模式
+1. 在右键菜单中选择"固定显示模式"
+2. 从左侧列表选择要显示的GIF
+3. 设置切换间隔
+4. 点击"启用"或"关闭"来控制模式
+
+## 常见问题
+
+### Q: 如何更改宠物大小？
+A: 目前所有GIF都统一为150x150像素。如需调整，可使用scripts目录下的gif_resizer.py处理。
+
+### Q: 如何添加新的表情？
+A: 将新的GIF文件放入对应情感文件夹（如happy/、sad/等），程序会自动加载。
+
+### Q: 为什么有时会显示生气表情？
+A: 快速连续点击（3秒内超过5次）会触发生气状态，这是一个保护机制。
+
+## 代码规范
+项目遵循以下结构：
+- Models: 业务逻辑和数据模型
+- Views: 用户界面相关代码
+- Base: 应用程序基础设施
+- scripts: 开发辅助工具（不随应用分发）
+
+## 参与贡献
+欢迎通过以下方式参与项目：
+1. 提交Issue报告问题或建议新功能
+2. 提交Pull Request改进代码
+3. 完善文档和示例
+4. 分享使用经验和建议
+
+## 许可证
+本项目采用MIT许可证。详见 [LICENSE](LICENSE) 文件。

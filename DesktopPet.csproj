@@ -1,11 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">  <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <ImplicitUsings>enable</ImplicitUsings>    
     <UseWPF>true</UseWPF>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <RootNamespace>DesktopPet</RootNamespace>
+    <AssemblyName>DesktopPet</AssemblyName>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultPageItems>false</EnableDefaultPageItems>
+    <StartupObject>DesktopPet.App</StartupObject>
+    <ApplicationDefinition>Base\App.xaml</ApplicationDefinition>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +19,37 @@
     </None>
   </ItemGroup>
 
+  <!-- 保持开发工具脚本 -->
+  <ItemGroup>
+    <None Include="scripts\**">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- 包引用 -->
   <ItemGroup>
     <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
+  </ItemGroup>
+  <!-- 项目结构分组 -->
+  <ItemGroup>
+    <ApplicationDefinition Include="Base\App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Views\**\*.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Views\**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Include="Base\App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Base\**\*.cs" Exclude="Base\App.xaml.cs"/>
+    <Compile Include="Models\**\*.cs" />
   </ItemGroup>
 </Project>
