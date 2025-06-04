@@ -15,7 +15,7 @@
 
 ### 安装要求
 - Windows 10或更高版本
-- [.NET 9.0](https://dotnet.microsoft.com/download) 或更高版本
+- [.NET 9.0](https://dotnet.microsoft.com/download) 或更高版本 （没有该环境请选择名称不带Framework的发行版）
 
 ### 安装方法
 
@@ -26,25 +26,13 @@
 4. （可选）右键菜单中选择"开机自启动"
 
 #### 方法二：从源代码编译
-1. 克隆仓库：`git clone [仓库地址]`
+1. 克隆仓库：`git clone https://github.com/vangee0528/DesktopPet/tree/V1.0`
 2. 安装 .NET 9.0 SDK
 3. 在项目目录下执行：
 ```powershell
 dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true
 ```
 4. 生成的程序在 `bin\Release\net9.0-windows\win-x64\publish` 目录下
-
-### 目录结构说明
-```
-安装目录/
-├── DesktopPet.exe          # 主程序
-└── dog_gifs/               # 表情资源文件夹
-    ├── happy/              # 开心表情
-    ├── excited/            # 兴奋表情
-    ├── curious/            # 好奇表情
-    ├── neutral/            # 中性表情
-    └── ...                 # 其他表情
-```
 
 ### 基本使用
 
@@ -81,7 +69,7 @@ dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=
    - 如果动画显示异常，检查dog_gifs目录是否完整
    - 配置文件保存在`%AppData%\DesktopPet`目录下
 
-### 进阶功能
+### 文件结构
 
 ```cpp
 DesktopPet/
@@ -230,7 +218,7 @@ python gif_resizer.py
 A: 目前所有GIF都统一为150x150像素。如需调整，可使用scripts目录下的gif_resizer.py处理。
 
 ### Q: 如何添加新的表情？
-A: 将新的GIF文件放入对应情感文件夹（如happy/、sad/等），程序会自动加载。
+A: 将新的GIF文件放入对应情感文件夹（如happy/、sad/等），程序会自动加载。请注意上传的表情应是背景透明的。
 
 ### Q: 为什么有时会显示生气表情？
 A: 快速连续点击（3秒内超过5次）会触发生气状态，这是一个保护机制。
@@ -241,13 +229,3 @@ A: 快速连续点击（3秒内超过5次）会触发生气状态，这是一个
 - Views: 用户界面相关代码
 - Base: 应用程序基础设施
 - scripts: 开发辅助工具（不随应用分发）
-
-## 参与贡献
-欢迎通过以下方式参与项目：
-1. 提交Issue报告问题或建议新功能
-2. 提交Pull Request改进代码
-3. 完善文档和示例
-4. 分享使用经验和建议
-
-## 许可证
-本项目采用MIT许可证。详见 [LICENSE](LICENSE) 文件。
